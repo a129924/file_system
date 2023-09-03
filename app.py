@@ -51,7 +51,6 @@ def download_file(filename: Optional[str] = None) -> Union[str, Response]:
         return render_template(
             "download.html",
             download_files=listdir(join(app.config["UPLOAD_FOLDER"], ".jpg")),
-            is_download_success=False,
         )
 
     return send_file(
