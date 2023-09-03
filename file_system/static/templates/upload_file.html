@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<h1>Upload File Page</h1>
+{% endblock %}
+
+{% block body %}
+<div class="upload-submit">
+    <form action="./upload-file" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" multiple />
+        <input type="submit" value="Upload">
+    </form>
+</div>
+<div class="show-files">
+    {% for file in files %}
+    <li>{{ file.filename }}</li>
+    {% endfor %}
+</div>
+{% endblock %}
