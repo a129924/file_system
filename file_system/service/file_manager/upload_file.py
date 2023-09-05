@@ -1,8 +1,6 @@
 import asyncio
 
-from werkzeug.datastructures import FileStorage
-
-from file_system.data_type import UploadFileResult
+from file_system.data_type import UploadFileResult, FileStorage
 from file_system.service.collections import (
     get_file_target,
     create_folder,

@@ -1,7 +1,7 @@
 from io import BytesIO
 from zipfile import ZipFile
 
-from file_system.service.collections import join
+from os.path import join
 
 
 def zip_file(*filenames: str, root_path: str) -> BytesIO:
