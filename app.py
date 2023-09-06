@@ -50,13 +50,15 @@ def download_file(filename: Optional[str] = None) -> Union[str, Response]:
     if filename is None:
         return render_template(
             "download.html",
-            download_files=listdir(join(app.config["UPLOAD_FOLDER"], ".jpg")),
+            download_files=listdir(
+                join(
+                    app.config["UPLOAD_FOLDER"],
+                )
+            ),
         )
 
     return send_file(
-        ZipController(
-            join(".jpg", filename), root_path=app.config["UPLOAD_FOLDER"]
-        ).zip_file(),
+        ZipController(filename, root_path=app.config["UPLOAD_FOLDER"]).zip_file(),
         as_attachment=True,
         download_name="file.zip",
         mimetype="application/zip",
@@ -67,8 +69,9 @@ def download_file(filename: Optional[str] = None) -> Union[str, Response]:
 @app.route("/ls/<path:filepath>")
 def listdirs(filepath: Optional[str] = None) -> str:
     from os import listdir
+    from sys import platform
 
-    return f"listdir: {listdir(filepath)}, filepath:{filepath}"
+    return f"listdir: {listdir(filepath)}, filepath:{filepath}, os:{platform}"
 
 
 if __name__ == "__main__":
