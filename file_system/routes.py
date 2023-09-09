@@ -8,16 +8,17 @@ from file_system.view.index_view import (
 from file_system.data_type import TempleteHtmlString
 from file_system.setting import DevelopConfigs
 
+TEMPLATE_FOLDER = "./static/templates"
 
 main_bp: Blueprint = Blueprint(
     "index",
     __name__,
     url_prefix="/index",
-    template_folder="./static/templates",
+    template_folder=TEMPLATE_FOLDER,
 )
 
 upload_bp: Blueprint = Blueprint(
-    "upload", __name__, url_prefix="/upload", template_folder="./static/templates"
+    "upload", __name__, url_prefix="/upload", template_folder=TEMPLATE_FOLDER
 )
 
 
