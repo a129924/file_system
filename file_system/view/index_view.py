@@ -1,6 +1,6 @@
 from flask import render_template, send_file, request, Response
 
-from file_system.data_type import Union, Optional, SettingConfigs
+from file_system.data_type import Union, Optional, SettingConfigs, TemplateHtmlString
 from file_system.controller.file_controller import FileUploadController
 from file_system.controller.zip_controller import ZipController
 from file_system.service.collections import join, listdir, get_file_target
@@ -14,24 +14,24 @@ def index2() -> str:
     return "Hello world3267sssss"
 
 
-async def upload_file(config: SettingConfigs) -> str:
-    if request.method == "POST":
-        files = tuple(
-            file
-            for file in request.files.getlist("file")
-            if file.filename
-            and get_file_target(file.filename) in config["ALLOW_EXTENSIONS"]
-        )
+async def upload_file(config: SettingConfigs) -> TemplateHtmlString:
+    files = tuple(
+        file
+        for file in request.files.getlist("file")
+        if file.filename
+        and get_file_target(file.filename) in config["ALLOW_EXTENSIONS"]
+    )
 
-        file_upload_controller = FileUploadController(
-            files=files, root_path=config["UPLOAD_FOLDER"]
-        )
+    file_upload_controller = FileUploadController(
+        files=files, root_path=config["UPLOAD_FOLDER"]
+    )
 
-        await file_upload_controller.save_files()
+    await file_upload_controller.save_files()
 
-        if files:
-            return render_template("upload_file.html", files=files)
+    return render_template("upload_file.html", files=files)
 
+
+def render_upload_file_page() -> TemplateHtmlString:
     return render_template("upload_file.html")
 
 

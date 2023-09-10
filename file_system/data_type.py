@@ -1,12 +1,12 @@
 from typing import List, Iterable, Optional, Union, Dict  # noqa: F401
 
-from typing_extensions import TypedDict, TypeAlias
+from typing_extensions import Literal, TypedDict, TypeAlias  # noqa: F401
 from werkzeug.datastructures import FileStorage
 
 
 FileStorageList: TypeAlias = List[FileStorage]
 FileStorageIterable: TypeAlias = Iterable[FileStorage]
-TempleteHtmlString: TypeAlias = str
+TemplateHtmlString: TypeAlias = str
 
 
 class UploadFileResult(TypedDict):

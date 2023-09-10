@@ -5,7 +5,7 @@ from file_system.setting import DevelopConfigs
 def init_app():
     app = Flask(__name__)
     app.config.from_mapping(DevelopConfigs)
-
+    print("INIT APP")
     with app.app_context():
         from file_system.routes import (  # noqa: E402
             main_bp,
