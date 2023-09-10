@@ -56,9 +56,13 @@ def download_file(filename: Optional[str] = None) -> Union[str, Response]:
                 )
             ),
         )
-
+    # print()
+    root_path = join(app.config["UPLOAD_FOLDER"], filename)
     return send_file(
-        ZipController(filename, root_path=app.config["UPLOAD_FOLDER"]).zip_file(),
+        ZipController(
+            *listdir(root_path),
+            root_path=root_path,
+        ).zip_file(),
         as_attachment=True,
         download_name="file.zip",
         mimetype="application/zip",

@@ -1,4 +1,12 @@
-from flask import render_template, send_file, request, Response
+from flask import (
+    render_template,
+    send_file,
+    request,
+    make_response,
+    Response,
+    redirect,
+    url_for,
+)
 
 from file_system.data_type import Union, Optional, SettingConfigs, TemplateHtmlString
 from file_system.controller.file_controller import FileUploadController
@@ -6,8 +14,33 @@ from file_system.controller.zip_controller import ZipController
 from file_system.service.collections import join, listdir, get_file_target
 
 
-def index() -> str:
-    return render_template("index.html")
+def render_index_page() -> TemplateHtmlString:
+    selected_user = request.cookies.get("selected_user")
+    return render_template(
+        "index.html",
+        users=[
+            "admin",
+            "user1",
+            "user2",
+            "user3",
+            "user4",
+            "user5",
+        ],
+        selected_user=selected_user,
+    )
+
+
+def set_user() -> Response:
+    selected_user: Optional[str] = request.form.get("selected-user")
+    print(f"selected_user: {selected_user}")
+    response = make_response(redirect(url_for("index.render_index_page")))
+    if selected_user == "選擇使用者":
+        return response
+
+    response.set_cookie(
+        key="selected_user", value=selected_user if selected_user else ""
+    )
+    return response
 
 
 def index2() -> str:

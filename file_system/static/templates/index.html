@@ -3,3 +3,27 @@
 {% block head %}
 <h1>Index Page</h1>
 {% endblock %}
+
+{% block body %}
+<div class="dropdown-menu">
+    <form id="select-user-form" action="{{ url_for('index.set_user' ) }}" method="post">
+        <div class="select-user">
+            <select name="selected-user" id="">
+                <option value="選擇使用者">選擇使用者</option>
+                {% for user in users %}
+                <option value="{{ user }}">{{ user }}</option>
+
+                {% endfor %}
+            </select>
+        </div>
+        <input type="submit" value="選擇使用者">
+    </form>
+    {% if selected_user %}
+    <div class="selected-user">
+        <h3>現在選擇的使用者為 : {{ selected_user }}</h3>
+    </div>
+
+    {% endif %}
+</div>
+
+{% endblock %}
