@@ -10,6 +10,7 @@ def init_app():
         from file_system.routes import (  # noqa: E402
             main_bp,
             upload_bp,
+            download_bp,
             Blueprint as BlueprintType,
         )
 
@@ -17,6 +18,6 @@ def init_app():
             for blueprint_obj in blueprint_objs:
                 app.register_blueprint(blueprint=blueprint_obj)
 
-        register_blueprints(main_bp, upload_bp)
+        register_blueprints(main_bp, upload_bp, download_bp)
 
         return app

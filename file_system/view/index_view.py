@@ -8,7 +8,7 @@ from flask import (
     url_for,
 )
 
-from file_system.data_type import Union, Optional, SettingConfigs, TemplateHtmlString
+from file_system.data_type import Optional, SettingConfigs, TemplateHtmlString
 from file_system.controller.file_controller import FileUploadController
 from file_system.controller.zip_controller import ZipController
 from file_system.service.collections import join, listdir, get_file_target
@@ -68,21 +68,20 @@ def render_upload_file_page() -> TemplateHtmlString:
     return render_template("upload_file.html")
 
 
-def download_file(
-    config: SettingConfigs, filename: Optional[str] = None
-) -> Union[str, Response]:
-    if filename is None:
-        return render_template(
-            "download.html",
-            download_files=listdir(
-                join(
-                    config["UPLOAD_FOLDER"],
-                )
-            ),
-        )
+def render_download_template(config: SettingConfigs) -> TemplateHtmlString:
+    return render_template(
+        "download.html", download_files=listdir(join(config["UPLOAD_FOLDER"]))
+    )
+
+
+def download_file(filename: str, config: SettingConfigs) -> Response:
+    root_path = join(config["UPLOAD_FOLDER"], filename)
 
     return send_file(
-        ZipController(filename, root_path=config["UPLOAD_FOLDER"]).zip_file(),
+        ZipController(
+            *listdir(root_path),
+            root_path=root_path,
+        ).zip_file(),
         as_attachment=True,
         download_name="file.zip",
         mimetype="application/zip",

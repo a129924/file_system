@@ -9,7 +9,7 @@
     <div class="download-file-list">
         {% for download_file in download_files %}
         <li>
-            <a href="{{ url_for('download_file', filename=download_file) }}">
+            <a href="{{ url_for('download.render_download_file_page', filename=download_file) }}">
                 {{ download_file }}
             </a>
         </li>
