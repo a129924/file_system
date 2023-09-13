@@ -1,6 +1,7 @@
 from flask import Blueprint, Response as ResponseType
 
 from file_system.view.index_view import (
+    redirect_to_index as _redirect_to_index,
     render_index_page as _render_index_page,
     set_user as _set_user,
     index2 as _index2,
@@ -9,10 +10,12 @@ from file_system.view.index_view import (
     render_download_template as _render_download_template,
     download_file as _download_file,
 )
-from file_system.data_type import TemplateHtmlString
+from file_system.data_type import TemplateHtmlString, BaseResponse
 from file_system.setting import DevelopConfigs
 
 TEMPLATE_FOLDER = "./static/templates"
+
+root_bp: Blueprint = Blueprint("root", __name__, "/", template_folder=TEMPLATE_FOLDER)
 
 main_bp: Blueprint = Blueprint(
     "index",
@@ -28,6 +31,17 @@ upload_bp: Blueprint = Blueprint(
 download_bp: Blueprint = Blueprint(
     "download", __name__, url_prefix="/download-file", template_folder=TEMPLATE_FOLDER
 )
+
+
+# before_request
+@main_bp.before_request
+def print_hello_world() -> None:
+    print("Hello World")
+
+
+@root_bp.route("/", methods=["GET"])
+def redirect_to_index() -> BaseResponse:
+    return _redirect_to_index()
 
 
 @main_bp.route("/", methods=["GET"])

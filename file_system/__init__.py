@@ -7,7 +7,8 @@ def init_app():
     app.config.from_mapping(DevelopConfigs)
     print("INIT APP")
     with app.app_context():
-        from file_system.routes import (  # noqa: E402
+        from file_system.routes import (
+            root_bp,
             main_bp,
             upload_bp,
             download_bp,
@@ -18,6 +19,6 @@ def init_app():
             for blueprint_obj in blueprint_objs:
                 app.register_blueprint(blueprint=blueprint_obj)
 
-        register_blueprints(main_bp, upload_bp, download_bp)
+        register_blueprints(root_bp, main_bp, upload_bp, download_bp)
 
         return app

@@ -18,7 +18,13 @@
         </div>
         <input type="submit" value="選擇使用者">
     </form>
-    {% if selected_user %}
+
+
+    {% if selected_user == "選擇使用者" %}
+    <div class="error-user">
+        <h3 style="color:red">請選擇使用者</h3>
+    </div>
+    {% elif selected_user %}
     <div class="selected-user">
         <h3>現在選擇的使用者為 : {{ selected_user }}</h3>
     </div>

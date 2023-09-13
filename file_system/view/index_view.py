@@ -8,10 +8,19 @@ from flask import (
     url_for,
 )
 
-from file_system.data_type import Optional, SettingConfigs, TemplateHtmlString
+from file_system.data_type import (
+    Optional,
+    SettingConfigs,
+    TemplateHtmlString,
+    BaseResponse,
+)
 from file_system.controller.file_controller import FileUploadController
 from file_system.controller.zip_controller import ZipController
 from file_system.service.collections import join, listdir, get_file_target
+
+
+def redirect_to_index() -> BaseResponse:
+    return redirect(url_for("index.render_index_page"))
 
 
 def render_index_page() -> TemplateHtmlString:
@@ -34,8 +43,6 @@ def set_user() -> Response:
     selected_user: Optional[str] = request.form.get("selected-user")
     print(f"selected_user: {selected_user}")
     response = make_response(redirect(url_for("index.render_index_page")))
-    if selected_user == "選擇使用者":
-        return response
 
     response.set_cookie(
         key="selected_user", value=selected_user if selected_user else ""

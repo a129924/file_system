@@ -2,6 +2,7 @@ from typing import List, Iterable, Optional, Union, Dict  # noqa: F401
 
 from typing_extensions import Literal, TypedDict, TypeAlias  # noqa: F401
 from werkzeug.datastructures import FileStorage
+from werkzeug.wrappers.response import Response as BaseResponse
 
 
 FileStorageList: TypeAlias = List[FileStorage]
