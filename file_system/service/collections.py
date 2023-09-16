@@ -10,6 +10,8 @@ from os.path import (
     splitext,
 )
 
+from os import getcwd as _getcwd
+
 
 def isfile(path: str) -> bool:
     return _isfile(path)
@@ -42,3 +44,7 @@ def listdir(folderpath: Optional[str] = None) -> List[str]:
 def create_folder(folderpath: str) -> None:
     if not is_exist(folderpath):
         _mkdir(folderpath)
+
+
+def get_project_root_path() -> str:
+    return _getcwd()

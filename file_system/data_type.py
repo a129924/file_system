@@ -1,4 +1,4 @@
-from typing import List, Iterable, Optional, Union, Dict  # noqa: F401
+from typing import List, Iterable, Optional, Union, Dict, Tuple  # noqa: F401
 
 from typing_extensions import Literal, TypedDict, TypeAlias  # noqa: F401
 from werkzeug.datastructures import FileStorage
@@ -21,3 +21,9 @@ class SettingConfigs(TypedDict):
     DEBUG: bool
     UPLOAD_FOLDER: str
     ALLOW_EXTENSIONS: List[str]
+    SQLALCHEMY_DATABASE_URI: str
+
+
+class UserInfo(TypedDict):
+    username: str
+    is_admin: bool

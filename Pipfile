@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 flask = {extras = ["async"], version = "*"}
 flask-sqlalchemy = "*"
+flask-migrate = "*"
 
 [dev-packages]
 

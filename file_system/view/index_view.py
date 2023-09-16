@@ -14,6 +14,7 @@ from file_system.data_type import (
     TemplateHtmlString,
     BaseResponse,
 )
+from file_system.model.helper import find_all_user
 from file_system.controller.file_controller import FileUploadController
 from file_system.controller.zip_controller import ZipController
 from file_system.service.collections import join, listdir, get_file_target
@@ -27,14 +28,7 @@ def render_index_page() -> TemplateHtmlString:
     selected_user = request.cookies.get("selected_user")
     return render_template(
         "index.html",
-        users=[
-            "admin",
-            "user1",
-            "user2",
-            "user3",
-            "user4",
-            "user5",
-        ],
+        users=find_all_user(),
         selected_user=selected_user,
     )
 
